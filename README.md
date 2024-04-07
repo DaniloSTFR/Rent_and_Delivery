@@ -41,29 +41,29 @@ Banco de dados
    - Valor Adiconal por Diaria	
    - Data de Criação
 
-6. **Pedido:**
+#6. **Pedido:**
    - Identificador (chave primária)
    - Valor da Corrida
    - Situação (Disponível, Aceito, Entregue)
    - Data de Criação
 
-7. **Notificação:**
+#7. **Notificação:**
    - Identificador (chave primária)
    - Data e Hora da Notificação
    - Entregador (chave estrangeira referenciando Entregador)
    - Pedido (chave estrangeira referenciando Pedido)
    - Data de Criação
 
-# 8. **TipoCNH:**
+#8. **TipoCNH:**
    - Identificador (chave primária)
    - Nome (A, B, Ambas)
 
-# 9. **TipoSituacaoPedido:**
+#9. **TipoSituacaoPedido:**
    - Identificador (chave primária)
    - Nome (Disponível, Aceito, Entregue)
 
 
-Regras de negocio:
+### Regras de negocio:
 
 ### Para o Ator Admin:
 

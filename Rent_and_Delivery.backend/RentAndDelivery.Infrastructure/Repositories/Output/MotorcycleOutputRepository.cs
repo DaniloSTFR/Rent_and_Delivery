@@ -30,9 +30,18 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             return motorcycle;
         }
 
-        public Task<Motorcycle> GetMotorcycleByPlate(string plate)
-        {
-            throw new NotImplementedException();
+        public async Task<Motorcycle> GetMotorcycleByPlate(string plate)
+        {   
+            if (string.IsNullOrEmpty(plate))
+                throw new InvalidOperationException("Plate is null");
+
+            var motorcycle = await db.Motorcycles
+                    .FirstOrDefaultAsync(ad => ad.Plate == plate);
+
+            /* if (motorcycle is null)
+                throw new InvalidOperationException("Motorcycles not found!"); */
+                
+            return  motorcycle;
         }
     }
 }

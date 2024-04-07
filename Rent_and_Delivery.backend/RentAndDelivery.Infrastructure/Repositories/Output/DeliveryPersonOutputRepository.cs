@@ -1,6 +1,7 @@
 using RentAndDelivery.Domain.Entities;
 using RentAndDelivery.Domain.Interfaces.Output;
 using RentAndDelivery.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace RentAndDelivery.Infrastructure.Repositories.Output
@@ -14,17 +15,26 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             db = _db;
         }
 
-        public Task<DeliveryPerson> GetDeliveryPersonByCNPJ(string cnpj)
-        {
-            throw new NotImplementedException();
+        public async Task<DeliveryPerson> GetDeliveryPersonByCNPJ(string cnpj)
+        {   
+            if (string.IsNullOrEmpty(cnpj))
+                throw new InvalidOperationException("CNPJ is null");
+
+            var deliveryPersons = await db.DeliveryPersons
+                    .FirstOrDefaultAsync(dp => dp.CNPJ == cnpj);
+
+            if (deliveryPersons is null)
+                throw new InvalidOperationException("DeliveryPersons not found!");
+                
+            return  deliveryPersons;
         }
 
         public async Task<DeliveryPerson> GetDeliveryPersonById(string deliveryPersonId)
         {
             var delivery = await db.DeliveryPersons.FindAsync(new Guid(deliveryPersonId));
 
-            if (delivery is null)
-                throw new InvalidOperationException("Delivery person not found!");
+/*             if (delivery is null)
+                throw new InvalidOperationException("Delivery person not found!"); */
 
             return delivery;
         }

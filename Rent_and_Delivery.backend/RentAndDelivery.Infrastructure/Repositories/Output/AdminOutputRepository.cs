@@ -24,11 +24,19 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             return admin;
         }
 
-        public Task<Admin> GetAdminByName(string adminId)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Admin> GetAdminByName(string adminName)
+        {   
+            if (string.IsNullOrEmpty(adminName))
+                throw new InvalidOperationException("AdminName is null");
 
+            var admin = await db.Admins
+                    .FirstOrDefaultAsync(ad => ad.Name == adminName);
+
+/*             if (admin is null)
+                throw new InvalidOperationException("Admin not found!"); */
+                
+            return  admin;
+        }
         public async Task<IEnumerable<Admin>> GetAdmins()
         {
             var adminlist = await db.Admins.ToListAsync();

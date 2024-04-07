@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RentAndDelivery.Domain.Entities;
 using RentAndDelivery.Domain.Interfaces.Output;
 using RentAndDelivery.Infrastructure.Context;
@@ -23,9 +24,15 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             return orderNotification;
         }
 
-        public Task<IEnumerable<OrderNotification>> GetOrderNotificationByOrder(string orderId)
-        {
-            throw new NotImplementedException();
+        public async Task<IEnumerable<OrderNotification>> GetOrderNotificationByOrder(string orderId)
+        {   
+            if (string.IsNullOrEmpty(orderId))
+                throw new InvalidOperationException("OrderId is null");
+
+            var orderNotifications = await db.OrderNotifications
+                    .Where(on => on.OrderId == new Guid(orderId)).ToListAsync(); 
+
+            return orderNotifications ?? Enumerable.Empty<OrderNotification>();
         }
     }
 }

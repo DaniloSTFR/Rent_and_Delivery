@@ -157,9 +157,9 @@ namespace RentAndDelivery.Infrastructure.Repositories
             }
         }
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

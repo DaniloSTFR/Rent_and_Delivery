@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RentAndDelivery.Domain.Entities;
 using RentAndDelivery.Domain.Enum;
 using RentAndDelivery.Domain.Interfaces.Output;
@@ -19,14 +20,17 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             var arder = await db.Orders.FindAsync(new Guid(orderId));
 
             if (arder is null)
-                throw new InvalidOperationException("Admin not found!");
+                throw new InvalidOperationException("Order not found!");
 
             return arder;
         }
         
-        public Task<IEnumerable<Order>> GetOrderStatus(OrderStatusType Status)
-        {
-            throw new NotImplementedException();
+        public async Task<IEnumerable<Order>> GetOrderStatus(OrderStatusType status)
+        {   
+            var orders = await db.Orders
+                    .Where(on => on.OrderStatusStatus == status).ToListAsync(); 
+                                  
+            return orders ?? Enumerable.Empty<Order>();
         }
     }
 }

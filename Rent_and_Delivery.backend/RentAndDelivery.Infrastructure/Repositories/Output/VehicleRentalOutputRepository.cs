@@ -13,9 +13,14 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             db = _db;
         }
 
-        public Task<VehicleRental> GetVehicleRentalById(string vehicleRentalId)
+        public async Task<VehicleRental> GetVehicleRentalById(string vehicleRentalId)
         {
-            throw new NotImplementedException();
+            var Vehicle = await db.VehiclesRentals.FindAsync(new Guid(vehicleRentalId));
+
+            if (Vehicle is null)
+                throw new InvalidOperationException("Vehicles not found!");
+
+            return Vehicle;
         }
     }
 }

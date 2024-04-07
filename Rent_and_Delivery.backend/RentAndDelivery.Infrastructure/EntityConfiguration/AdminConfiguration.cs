@@ -10,7 +10,7 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
         {
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Name).HasMaxLength(100).IsRequired();
-            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).IsRequired();
+            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
 
             //ValuesDafault to test
             builder.HasData(

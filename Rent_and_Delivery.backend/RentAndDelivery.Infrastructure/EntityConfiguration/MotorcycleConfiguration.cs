@@ -15,7 +15,7 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
             builder.HasAlternateKey(c => c.Plate).HasName("UniqueKey_Plate");
             //builder.Property(m => m.Plate).HasMaxLength(100).IsRequired();
             builder.Property(m => m.Status).IsRequired();
-            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).IsRequired();
+            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
             
 
             //ValuesDafault to test

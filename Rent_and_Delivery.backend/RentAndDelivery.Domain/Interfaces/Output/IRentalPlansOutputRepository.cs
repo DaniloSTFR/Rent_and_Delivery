@@ -7,6 +7,6 @@ namespace RentAndDelivery.Domain.Interfaces.Output
     public interface IRentalPlanOutputRepository
     {
         Task<RentalPlan> GetRentalPlanById(string rentalPlanId);
-        Task<IEnumerable<RentalPlan>> GetRentalPlan();
+        Task<IEnumerable<RentalPlan>> GetRentalPlans();
     }
 }

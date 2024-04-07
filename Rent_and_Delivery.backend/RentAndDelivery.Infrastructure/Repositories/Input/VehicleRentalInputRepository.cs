@@ -13,19 +13,32 @@ namespace RentAndDelivery.Infrastructure.Repositories.Input
             db = _db;
         }
 
-        public Task<VehicleRental> AddVehicleRental(VehicleRental vehicleRental)
+        public async Task<VehicleRental> AddVehicleRental(VehicleRental vehicleRental)
         {
-            throw new NotImplementedException();
+            if (vehicleRental is null)
+                throw new ArgumentNullException(nameof(vehicleRental));
+
+            await db.VehiclesRentals.AddAsync(vehicleRental);
+            return vehicleRental;
         }
 
-        public Task<VehicleRental> DeleteVehicleRental(string vehicleRentalId)
+        public async Task<VehicleRental> DeleteVehicleRental(string vehicleRentalId)
         {
-            throw new NotImplementedException();
-        }
+            var vehicleRental = await db.VehiclesRentals.FindAsync(new Guid(vehicleRentalId));
+
+            if (vehicleRental is null)
+                throw new InvalidOperationException("VehicleRental not found!");
+
+            db.VehiclesRentals.Remove(vehicleRental);
+            return vehicleRental;
+        } 
 
         public void UpdateVehicleRental(VehicleRental vehicleRental)
         {
-            throw new NotImplementedException();
+            if (vehicleRental is null)
+                throw new ArgumentNullException(nameof(vehicleRental));
+
+            db.VehiclesRentals.Update(vehicleRental);
         }
     }
 }

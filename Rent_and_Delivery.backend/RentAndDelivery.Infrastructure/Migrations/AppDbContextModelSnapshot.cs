@@ -29,7 +29,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,7 +46,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("4faa9cab-f205-40cb-5953-08dc489cfb2d"),
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(2230),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(6194),
                             Name = "Admin"
                         });
                 });
@@ -65,7 +67,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<string>("ImageCNH")
                         .IsRequired()
@@ -98,9 +102,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("15ef9e35-e3af-4a70-826d-88edba8efcc0"),
-                            BirthDate = new DateTime(2004, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(3454),
+                            BirthDate = new DateTime(2004, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8450),
                             CNPJ = "74979006000199",
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(3463),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8460),
                             ImageCNH = "./images/imageCNH.jpg",
                             LicenseNumberCNH = "30222894101",
                             LicenseType = 1,
@@ -115,7 +119,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -144,7 +150,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("6c31f522-56b1-4bc2-a8c9-585627c23318"),
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(4779),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(825),
                             Model = "Factor 125",
                             Plate = "OFL0823",
                             Status = 1,
@@ -162,7 +168,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<DateTime?>("DeliveredOrderDate")
                         .HasColumnType("timestamp with time zone");
@@ -187,7 +195,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"),
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(5671),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(2636),
                             OrderStatusStatus = 1,
                             RaceValue = 50f
                         });
@@ -200,7 +208,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<Guid>("DeliveryPersonId")
                         .HasColumnType("uuid");
@@ -232,7 +242,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<float?>("FineInPercentage")
                         .IsRequired()
@@ -257,7 +269,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                             Id = new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"),
                             AdditionalValuePerDay = 50f,
                             CostPerDay = 30f,
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(7848),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5783),
                             FineInPercentage = 20f,
                             PlanDays = 7,
                             PlanName = "7_Days"
@@ -267,7 +279,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                             Id = new Guid("54b78006-d2c0-4041-ad81-5e88b84142c0"),
                             AdditionalValuePerDay = 50f,
                             CostPerDay = 28f,
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(7865),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5802),
                             FineInPercentage = 40f,
                             PlanDays = 15,
                             PlanName = "15_Days"
@@ -277,7 +289,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                             Id = new Guid("5b17845c-d0a7-4a84-b380-a0ac18382b5a"),
                             AdditionalValuePerDay = 50f,
                             CostPerDay = 22f,
-                            CreatedOn = new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(7869),
+                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5808),
                             FineInPercentage = 60f,
                             PlanDays = 30,
                             PlanName = "30_Days"
@@ -291,7 +303,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("Now()");
 
                     b.Property<Guid>("DeliveryPersonId")
                         .HasMaxLength(100)

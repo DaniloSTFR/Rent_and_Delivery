@@ -14,19 +14,32 @@ namespace RentAndDelivery.Infrastructure.Repositories.Input
             db = _db;
         }
 
-        public Task<Admin> AddAdmin(Admin admin)
+        public async Task<Admin> AddAdmin(Admin admin)
         {
-            throw new NotImplementedException();
+            if (admin is null)
+                throw new ArgumentNullException(nameof(admin));
+
+            await db.Admins.AddAsync(admin);
+            return admin;
         }
 
-        public Task<Admin> DeleteAdmin(string adminId)
+        public async Task<Admin> DeleteAdmin(string adminId)
         {
-            throw new NotImplementedException();
-        }
+            var admin = await db.Admins.FindAsync(new Guid(adminId));
+
+            if (admin is null)
+                throw new InvalidOperationException("Admin not found!");
+
+            db.Admins.Remove(admin);
+            return admin;
+        }  
 
         public void UpdateAdmin(Admin admin)
         {
-            throw new NotImplementedException();
+            if (admin is null)
+                throw new ArgumentNullException(nameof(admin));
+
+            db.Admins.Update(admin);
         }
     }
 }

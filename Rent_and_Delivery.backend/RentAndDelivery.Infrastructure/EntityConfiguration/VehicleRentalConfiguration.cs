@@ -15,7 +15,7 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
             builder.Property(m => m.TotalAmount).HasMaxLength(100).IsRequired();
             builder.Property(m => m.DeliveryPersonId).HasMaxLength(100).IsRequired();
             builder.Property(m => m.MotorcycleId).HasMaxLength(100).IsRequired();
-            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).IsRequired();
+            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
         }
     }
 }

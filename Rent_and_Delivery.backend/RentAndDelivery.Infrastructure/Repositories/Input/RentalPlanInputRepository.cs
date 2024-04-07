@@ -13,19 +13,32 @@ namespace RentAndDelivery.Infrastructure.Repositories.Input
             db = _db;
         }
 
-        public Task<RentalPlan> AddRentalPlan(RentalPlan rentalPlan)
+        public async Task<RentalPlan> AddRentalPlan(RentalPlan rentalPlan)
         {
-            throw new NotImplementedException();
+            if (rentalPlan is null)
+                throw new ArgumentNullException(nameof(rentalPlan));
+
+            await db.RentalPlans.AddAsync(rentalPlan);
+            return rentalPlan;
         }
 
-        public Task<RentalPlan> DeleteRentalPlan(string rentalPlanId)
+        public async Task<RentalPlan> DeleteRentalPlan(string rentalPlanId)
         {
-            throw new NotImplementedException();
-        }
+            var rentalPlan = await db.RentalPlans.FindAsync(new Guid(rentalPlanId));
+
+            if (rentalPlan is null)
+                throw new InvalidOperationException("RentalPlan not found!");
+
+            db.RentalPlans.Remove(rentalPlan);
+            return rentalPlan;
+        }  
 
         public void UpdateRentalPlan(RentalPlan rentalPlan)
         {
-            throw new NotImplementedException();
+            if (rentalPlan is null)
+                throw new ArgumentNullException(nameof(rentalPlan));
+
+            db.RentalPlans.Update(rentalPlan);
         }
     }
 }

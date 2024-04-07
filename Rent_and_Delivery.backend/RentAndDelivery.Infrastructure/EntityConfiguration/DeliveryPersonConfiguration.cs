@@ -16,7 +16,7 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
             builder.Property(m => m.LicenseNumberCNH).HasMaxLength(100).IsRequired();
             builder.Property(m => m.LicenseType).IsRequired();
             builder.Property(m => m.ImageCNH).HasMaxLength(300).IsRequired();
-            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).IsRequired();
+            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
 
             //ValuesDafault to test
             builder.HasData(

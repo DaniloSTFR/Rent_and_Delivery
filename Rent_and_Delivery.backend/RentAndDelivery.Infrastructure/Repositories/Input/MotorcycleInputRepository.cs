@@ -12,19 +12,33 @@ namespace RentAndDelivery.Infrastructure.Repositories.Input
             db = _db;
         }
 
-        public Task<Motorcycle> AddMotorcycle(Motorcycle motorcycle)
+        public async Task<Motorcycle> AddMotorcycle(Motorcycle motorcycle)
         {
-            throw new NotImplementedException();
+            if (motorcycle is null)
+                throw new ArgumentNullException(nameof(motorcycle));
+
+            await db.Motorcycles.AddAsync(motorcycle);
+            return motorcycle;
         }
 
-        public Task<Motorcycle> DeleteMotorcycle(string motorcycleId)
+        public async Task<Motorcycle> DeleteMotorcycle(string motorcycleId)
         {
-            throw new NotImplementedException();
-        }
+            var motorcycle = await db.Motorcycles.FindAsync(new Guid(motorcycleId));
+
+            if (motorcycle is null)
+                throw new InvalidOperationException("Motorcycle not found!");
+
+            db.Motorcycles.Remove(motorcycle);
+            return motorcycle;
+        }   
+
 
         public void UpdateMotorcycle(Motorcycle motorcycle)
         {
-            throw new NotImplementedException();
+            if (motorcycle is null)
+                throw new ArgumentNullException(nameof(motorcycle));
+
+            db.Motorcycles.Update(motorcycle);
         }
     }
 }

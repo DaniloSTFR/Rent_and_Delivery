@@ -14,7 +14,7 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
             builder.Property(m => m.CostPerDay).IsRequired();
             builder.Property(m => m.FineInPercentage).IsRequired();
             builder.Property(m => m.AdditionalValuePerDay).IsRequired();
-            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).IsRequired();
+            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
 
             //Set ValuesDafault to test
             builder.HasData(

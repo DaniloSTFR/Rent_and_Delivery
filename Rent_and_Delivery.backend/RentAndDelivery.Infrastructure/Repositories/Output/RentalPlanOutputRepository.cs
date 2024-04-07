@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RentAndDelivery.Domain.Entities;
 using RentAndDelivery.Domain.Interfaces.Output;
 using RentAndDelivery.Infrastructure.Context;
@@ -13,14 +14,20 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             db = _db;
         }
 
-        public Task<IEnumerable<RentalPlan>> GetRentalPlan()
+        public async Task<IEnumerable<RentalPlan>> GetRentalPlans()
         {
-            throw new NotImplementedException();
+            var rentalPlanlist = await db.RentalPlans.ToListAsync();
+            return rentalPlanlist ?? Enumerable.Empty<RentalPlan>();
         }
 
-        public Task<RentalPlan> GetRentalPlanById(string rentalPlanId)
+        public async Task<RentalPlan> GetRentalPlanById(string rentalPlanId)
         {
-            throw new NotImplementedException();
+            var rentalPlan = await db.RentalPlans.FindAsync(new Guid(rentalPlanId));
+
+            if (rentalPlan is null)
+                throw new InvalidOperationException("RentalPlan not found!");
+
+            return rentalPlan;
         }
     }
 }

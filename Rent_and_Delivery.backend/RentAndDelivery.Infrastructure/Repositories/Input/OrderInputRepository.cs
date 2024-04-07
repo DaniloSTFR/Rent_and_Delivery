@@ -13,19 +13,32 @@ namespace RentAndDelivery.Infrastructure.Repositories.Input
             db = _db;
         }
 
-        public Task<Order> AddOrder(Order order)
+        public async Task<Order> AddOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (order is null)
+                throw new ArgumentNullException(nameof(order));
+
+            await db.Orders.AddAsync(order);
+            return order;
         }
 
-        public Task<Order> DeleteOrder(string orderId)
+        public async Task<Order> DeleteOrder(string orderId)
         {
-            throw new NotImplementedException();
+            var order = await db.Orders.FindAsync(new Guid(orderId));
+
+            if (order is null)
+                throw new InvalidOperationException("Member not found");
+
+            db.Orders.Remove(order);
+            return order;
         }
 
         public void UpdateOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (order is null)
+                throw new ArgumentNullException(nameof(order));
+
+            db.Orders.Update(order);
         }
     }
 }

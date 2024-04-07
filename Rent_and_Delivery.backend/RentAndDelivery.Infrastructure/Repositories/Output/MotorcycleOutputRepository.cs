@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RentAndDelivery.Domain.Entities;
 using RentAndDelivery.Domain.Interfaces.Output;
 using RentAndDelivery.Infrastructure.Context;
@@ -13,14 +14,20 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             db = _db;
         }
 
-        public Task<IEnumerable<Motorcycle>> GetMotorcycle()
+        public async Task<IEnumerable<Motorcycle>> GetMotorcycle()
         {
-            throw new NotImplementedException();
+            var motorcyclelist = await db.Motorcycles.ToListAsync();
+            return motorcyclelist ?? Enumerable.Empty<Motorcycle>();
         }
 
-        public Task<Motorcycle> GetMotorcycleById(string motorcycleId)
+        public async Task<Motorcycle> GetMotorcycleById(string motorcycleId)
         {
-            throw new NotImplementedException();
+            var motorcycle = await db.Motorcycles.FindAsync(new Guid(motorcycleId));
+
+            if (motorcycle is null)
+                throw new InvalidOperationException("MotorcycleId not found!");
+
+            return motorcycle;
         }
 
         public Task<Motorcycle> GetMotorcycleByPlate(string plate)

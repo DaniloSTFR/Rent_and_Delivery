@@ -19,9 +19,14 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             throw new NotImplementedException();
         }
 
-        public Task<DeliveryPerson> GetDeliveryPersonById(string deliveryPersonId)
+        public async Task<DeliveryPerson> GetDeliveryPersonById(string deliveryPersonId)
         {
-            throw new NotImplementedException();
+            var delivery = await db.DeliveryPersons.FindAsync(new Guid(deliveryPersonId));
+
+            if (delivery is null)
+                throw new InvalidOperationException("Delivery person not found!");
+
+            return delivery;
         }
     }
 }

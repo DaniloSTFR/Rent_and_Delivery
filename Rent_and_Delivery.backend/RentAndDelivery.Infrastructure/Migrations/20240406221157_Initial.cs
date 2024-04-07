@@ -19,7 +19,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -35,7 +35,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     Model = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Plate = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     CostPerDay = table.Column<float>(type: "real", nullable: false),
                     FineInPercentage = table.Column<float>(type: "real", nullable: false),
                     AdditionalValuePerDay = table.Column<float>(type: "real", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -72,7 +72,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     LicenseType = table.Column<int>(type: "integer", nullable: false),
                     ImageCNH = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -89,7 +89,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     DeliveryPersonId = table.Column<Guid>(type: "uuid", nullable: true),
                     AcceptedOrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeliveredOrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -112,7 +112,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     TotalAmount = table.Column<float>(type: "real", maxLength: 100, nullable: false),
                     DeliveryPersonId = table.Column<Guid>(type: "uuid", maxLength: 100, nullable: false),
                     MotorcycleId = table.Column<Guid>(type: "uuid", maxLength: 100, nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -138,7 +138,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     DeliveryPersonId = table.Column<Guid>(type: "uuid", nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
@@ -160,31 +160,31 @@ namespace RentAndDelivery.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "CreatedOn", "Name" },
-                values: new object[] { new Guid("4faa9cab-f205-40cb-5953-08dc489cfb2d"), new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(2230), "Admin" });
+                values: new object[] { new Guid("4faa9cab-f205-40cb-5953-08dc489cfb2d"), new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(6194), "Admin" });
 
             migrationBuilder.InsertData(
                 table: "DeliveryPersons",
                 columns: new[] { "Id", "BirthDate", "CNPJ", "CreatedOn", "ImageCNH", "LicenseNumberCNH", "LicenseType", "Name", "OrderId" },
-                values: new object[] { new Guid("15ef9e35-e3af-4a70-826d-88edba8efcc0"), new DateTime(2004, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(3454), "74979006000199", new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(3463), "./images/imageCNH.jpg", "30222894101", 1, "John Doe Test", null });
+                values: new object[] { new Guid("15ef9e35-e3af-4a70-826d-88edba8efcc0"), new DateTime(2004, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8450), "74979006000199", new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8460), "./images/imageCNH.jpg", "30222894101", 1, "John Doe Test", null });
 
             migrationBuilder.InsertData(
                 table: "Motorcycles",
                 columns: new[] { "Id", "CreatedOn", "Model", "Plate", "Status", "Year" },
-                values: new object[] { new Guid("6c31f522-56b1-4bc2-a8c9-585627c23318"), new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(4779), "Factor 125", "OFL0823", 1, 2023 });
+                values: new object[] { new Guid("6c31f522-56b1-4bc2-a8c9-585627c23318"), new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(825), "Factor 125", "OFL0823", 1, 2023 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "AcceptedOrderDate", "CreatedOn", "DeliveredOrderDate", "DeliveryPersonId", "OrderStatusStatus", "RaceValue" },
-                values: new object[] { new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"), null, new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(5671), null, null, 1, 50f });
+                values: new object[] { new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"), null, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(2636), null, null, 1, 50f });
 
             migrationBuilder.InsertData(
                 table: "RentalPlans",
                 columns: new[] { "Id", "AdditionalValuePerDay", "CostPerDay", "CreatedOn", "FineInPercentage", "PlanDays", "PlanName" },
                 values: new object[,]
                 {
-                    { new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"), 50f, 30f, new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(7848), 20f, 7, "7_Days" },
-                    { new Guid("54b78006-d2c0-4041-ad81-5e88b84142c0"), 50f, 28f, new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(7865), 40f, 15, "15_Days" },
-                    { new Guid("5b17845c-d0a7-4a84-b380-a0ac18382b5a"), 50f, 22f, new DateTime(2024, 4, 4, 0, 16, 38, 779, DateTimeKind.Utc).AddTicks(7869), 60f, 30, "30_Days" }
+                    { new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"), 50f, 30f, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5783), 20f, 7, "7_Days" },
+                    { new Guid("54b78006-d2c0-4041-ad81-5e88b84142c0"), 50f, 28f, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5802), 40f, 15, "15_Days" },
+                    { new Guid("5b17845c-d0a7-4a84-b380-a0ac18382b5a"), 50f, 22f, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5808), 60f, 30, "30_Days" }
                 });
 
             migrationBuilder.CreateIndex(

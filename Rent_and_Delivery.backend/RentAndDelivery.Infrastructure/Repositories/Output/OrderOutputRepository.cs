@@ -14,11 +14,16 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             db = _db;
         }
 
-        public Task<Order> GetOrderById(string orderId)
+        public async Task<Order> GetOrderById(string orderId)
         {
-            throw new NotImplementedException();
-        }
+            var arder = await db.Orders.FindAsync(new Guid(orderId));
 
+            if (arder is null)
+                throw new InvalidOperationException("Admin not found!");
+
+            return arder;
+        }
+        
         public Task<IEnumerable<Order>> GetOrderStatus(OrderStatusType Status)
         {
             throw new NotImplementedException();

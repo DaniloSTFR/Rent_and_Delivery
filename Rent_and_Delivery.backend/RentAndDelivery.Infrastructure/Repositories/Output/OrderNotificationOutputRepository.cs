@@ -13,9 +13,14 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             db = _db;
         }
 
-        public Task<OrderNotification> GetOrderNotificationById(string orderNotificationId)
+        public async Task<OrderNotification> GetOrderNotificationById(string orderNotificationId)
         {
-            throw new NotImplementedException();
+            var orderNotification = await db.OrderNotifications.FindAsync(new Guid(orderNotificationId));
+
+            if (orderNotification is null)
+                throw new InvalidOperationException("ArderNotification not found!");
+
+            return orderNotification;
         }
 
         public Task<IEnumerable<OrderNotification>> GetOrderNotificationByOrder(string orderId)

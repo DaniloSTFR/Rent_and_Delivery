@@ -81,8 +81,12 @@ Banco de dados
    - O admin pode remover uma moto cadastrada incorretamente, desde que não tenha registros de locações associados a ela.   
 
 5. **Cadastro de Pedidos:**
-   - O admin pode cadastrar um novo pedido na plataforma com informações como valor da corrida e situação (disponível, aceito, entregue).
-   - A data de criação do pedido deve ser registrada.
+   - O admin pode cadastrar um novo pedido na plataforma com informações: Intificador, data de criacao, valor da corrida, situacao (disponível, aceito, entregue).
+   - Quando o pedido entrar na plataforma a aplicação deverá notificar os entregadores sobre a existencia desse pedido.
+   - - A notificação deverá ser publicada por mensageria.
+   - - Somente entregadores com locação ativa e que não estejam com um pedido já aceito deverão ser notificados.
+   - Criar um consumidor para notificação de pedido disponível.
+   - Assim que a mensagem for recebida, deverá ser armazenada no banco de dados para consulta futura.
 
 6. **Consulta de Notificações:**
    - Ele pode consultar todos os entregadores que foram notificados sobre um   específico.

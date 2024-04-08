@@ -14,13 +14,13 @@ namespace RentAndDelivery.Domain.Entities
         public string? LicenseNumberCNH { get; private set; }
         public CNHDriversLicenseType? LicenseType { get; private set; }
         public string? ImageCNH { get; private set; }
-        public ICollection<Order> Orders { get; } = new List<Order>();
-        public List<Motorcycle> Motorcycles { get; } = [];
+
         #endregion 
         
         public DeliveryPerson(){}
         public DeliveryPerson(string name, string cnpj, DateTime birthDate, string licenseNumberCNH, CNHDriversLicenseType licenseType, string imageCNH)
         {
+            Id = SGVG.Next(null);
             CreatedOn = DateTime.Now;
             ValidateDomain(name, cnpj, birthDate, licenseNumberCNH, licenseType, imageCNH);
         }

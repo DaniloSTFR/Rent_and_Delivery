@@ -14,6 +14,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
         private float TotalAmount;
         private DeliveryPerson DeliveryPerson;
         private Motorcycle Motorcycle;
+        private RentalPlan RentalPlan;
 
         public VehicleRentalTests(){}
 
@@ -24,6 +25,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             TotalAmount = 0;
             DeliveryPerson = new DeliveryPerson("john doe", "74979006000199", DateTime.Now.AddYears(-20), "30222894101", CNHDriversLicenseType.AandB , "./images/imageCNH.jpg");
             Motorcycle = new Motorcycle(DateTime.Now.Year, "Fac", "OFL", MotorcycleStatusType.Available);
+            RentalPlan = new RentalPlan(new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"), "7_Days", 7, 30, 20, 50, DateTime.Now);
         }
 
          
@@ -37,7 +39,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "The rental end date cannot be equals or less than the start date!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -55,7 +57,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "The rental end date cannot be equals or less than the start date!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -73,7 +75,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "The rental end estimated End Date cannot be equal or less than the start date!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -91,7 +93,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "The rental end estimated End Date cannot be equal or less than the start date!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -109,7 +111,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "The total amount does not have a valid value!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle,RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -127,7 +129,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "DeliveryPerson is Invalid. DeliveryPerson is required";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -145,7 +147,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "Delivery person does not have a valid type of license. The license type must be A or A and B!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -163,7 +165,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "Motorcycle is Invalid. Motorcycle is required!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -181,7 +183,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             string exceptionMessege = "The motorcycle is not available for rent. An available motorcycle is required!";
 
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.NotNull(ex);
@@ -195,7 +197,7 @@ namespace RentAndDelivery.Tests.DomainUnitTests
             // Arrange
             InitializingParameters();
             //Act
-            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle));
+            var ex = Record.Exception(() => _vehicleRental = new VehicleRental(StartDate, EndDate, EstimatedEndDate, TotalAmount, DeliveryPerson, Motorcycle, RentalPlan));
 
             //Assert
             Assert.Null(ex);

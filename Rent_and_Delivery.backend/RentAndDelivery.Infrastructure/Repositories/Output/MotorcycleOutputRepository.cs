@@ -24,8 +24,8 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
         {
             var motorcycle = await db.Motorcycles.FindAsync(new Guid(motorcycleId));
 
-            if (motorcycle is null)
-                throw new InvalidOperationException("MotorcycleId not found!");
+          /*if (motorcycle is null)
+                throw new InvalidOperationException("MotorcycleId not found!");*/
 
             return motorcycle;
         }
@@ -42,6 +42,28 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
                 throw new InvalidOperationException("Motorcycles not found!"); */
                 
             return  motorcycle;
+        }
+
+        public async Task<IEnumerable<Motorcycle>> GetMotorcycleFilterByPlate(string plate)
+        {   
+            if (string.IsNullOrEmpty(plate))
+                throw new InvalidOperationException("Plate is null");
+
+            var motorcycle = await db.Motorcycles
+                    .Where(ad => ad.Plate.Contains(plate.ToUpper())).ToListAsync();
+
+            /* if (motorcycle is null)
+                throw new InvalidOperationException("Motorcycles not found!"); */
+                
+            return  motorcycle;
+        }
+
+        public void UpdateMotorcycle(Motorcycle motorcycle)
+        {
+            if (motorcycle is null)
+                throw new ArgumentNullException(nameof(motorcycle));
+
+            db.Motorcycles.Update(motorcycle);
         }
     }
 }

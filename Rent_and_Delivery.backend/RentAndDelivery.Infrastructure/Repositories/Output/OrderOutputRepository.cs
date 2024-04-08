@@ -19,8 +19,8 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
         {
             var arder = await db.Orders.FindAsync(new Guid(orderId));
 
-            if (arder is null)
-                throw new InvalidOperationException("Order not found!");
+            /*if (arder is null)
+                throw new InvalidOperationException("Order not found!");*/
 
             return arder;
         }

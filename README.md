@@ -68,21 +68,23 @@ Banco de dados
 ### Para o Ator Admin:
 
 1. **Cadastro de Moto:**
-   - O admin pode cadastrar uma nova moto com os seguintes dados obrigatórios: ano, modelo e placa. A placa deve ser única.
-   - Ele também deve ser capaz de especificar a data de criação da moto.
+   - O admin pode cadastrar uma nova moto com os seguintes dados obrigatórios: ano, modelo e placa.
+   - A placa é um dado único e não pode se repetir.
 
 2. **Consulta de Motos:**
    - O admin pode visualizar todas as motos cadastradas na plataforma e filtrá-las pela placa.
 
-3. **Modificação e Remoção de Moto:**
+3. **Modificação Moto:**
    - O admin pode modificar a placa de uma moto cadastrada incorretamente.
-   - Ele pode remover uma moto cadastrada incorretamente, desde que não tenha registros de locações associados a ela.
+   
+4. **Remoção de Moto:**
+   - O admin pode remover uma moto cadastrada incorretamente, desde que não tenha registros de locações associados a ela.   
 
-4. **Cadastro de Pedidos:**
+5. **Cadastro de Pedidos:**
    - O admin pode cadastrar um novo pedido na plataforma com informações como valor da corrida e situação (disponível, aceito, entregue).
    - A data de criação do pedido deve ser registrada.
 
-5. **Consulta de Notificações:**
+6. **Consulta de Notificações:**
    - Ele pode consultar todos os entregadores que foram notificados sobre um   específico.
 
 ### Para o Ator Entregador:

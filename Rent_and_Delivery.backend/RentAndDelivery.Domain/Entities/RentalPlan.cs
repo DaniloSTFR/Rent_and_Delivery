@@ -18,6 +18,7 @@ namespace RentAndDelivery.Domain.Entities
 
         public RentalPlan(string planName, int planDays, float costPerDay, float fineInPercentage, float additionalValuePerDay)
         {
+            Id = SGVG.Next(null);
             CreatedOn = DateTime.Now;
             ValidateDomain(planName, planDays, costPerDay, fineInPercentage, additionalValuePerDay);
         }

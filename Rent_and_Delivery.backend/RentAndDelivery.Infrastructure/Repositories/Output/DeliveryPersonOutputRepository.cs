@@ -23,8 +23,8 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             var deliveryPersons = await db.DeliveryPersons
                     .FirstOrDefaultAsync(dp => dp.CNPJ == cnpj);
 
-            if (deliveryPersons is null)
-                throw new InvalidOperationException("DeliveryPersons not found!");
+          /*if (deliveryPersons is null)
+                throw new InvalidOperationException("DeliveryPersons not found!");*/
                 
             return  deliveryPersons;
         }

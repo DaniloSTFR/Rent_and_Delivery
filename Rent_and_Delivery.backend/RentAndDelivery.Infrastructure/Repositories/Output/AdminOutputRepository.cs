@@ -16,10 +16,13 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
 
         public async Task<Admin> GetAdminById(string adminId)
         {
+            if (string.IsNullOrEmpty(adminId))
+                throw new InvalidOperationException("AdminId is null");
+
             var admin = await db.Admins.FindAsync(new Guid(adminId));
 
-            if (admin is null)
-                throw new InvalidOperationException("Admin not found!");
+            /* if (admin is null)
+                throw new InvalidOperationException("Admin not found!"); */
 
             return admin;
         }
@@ -32,7 +35,7 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             var admin = await db.Admins
                     .FirstOrDefaultAsync(ad => ad.Name == adminName);
 
-/*             if (admin is null)
+            /*if (admin is null)
                 throw new InvalidOperationException("Admin not found!"); */
                 
             return  admin;

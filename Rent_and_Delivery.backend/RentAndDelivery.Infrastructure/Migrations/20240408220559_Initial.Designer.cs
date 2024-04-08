@@ -12,7 +12,7 @@ using RentAndDelivery.Infrastructure.Context;
 namespace RentAndDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240406221157_Initial")]
+    [Migration("20240408220559_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("4faa9cab-f205-40cb-5953-08dc489cfb2d"),
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(6194),
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 620, DateTimeKind.Utc).AddTicks(8075),
                             Name = "Admin"
                         });
                 });
@@ -60,8 +60,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("BirthDate")
-                        .IsRequired()
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CNPJ")
@@ -92,12 +91,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("DeliveryPersons");
 
@@ -105,9 +99,9 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("15ef9e35-e3af-4a70-826d-88edba8efcc0"),
-                            BirthDate = new DateTime(2004, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8450),
+                            BirthDate = new DateTime(2004, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(1255),
                             CNPJ = "74979006000199",
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8460),
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(1265),
                             ImageCNH = "./images/imageCNH.jpg",
                             LicenseNumberCNH = "30222894101",
                             LicenseType = 1,
@@ -133,7 +127,8 @@ namespace RentAndDelivery.Infrastructure.Migrations
 
                     b.Property<string>("Plate")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -144,8 +139,8 @@ namespace RentAndDelivery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Plate")
-                        .HasName("UniqueKey_Plate");
+                    b.HasIndex("Plate")
+                        .IsUnique();
 
                     b.ToTable("Motorcycles");
 
@@ -153,8 +148,8 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("6c31f522-56b1-4bc2-a8c9-585627c23318"),
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(825),
-                            Model = "Factor 125",
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(3179),
+                            Model = "FACTOR 125",
                             Plate = "OFL0823",
                             Status = 1,
                             Year = 2023
@@ -198,7 +193,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"),
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(2636),
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(7390),
                             OrderStatusStatus = 1,
                             RaceValue = 50f
                         });
@@ -272,7 +267,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                             Id = new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"),
                             AdditionalValuePerDay = 50f,
                             CostPerDay = 30f,
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5783),
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 622, DateTimeKind.Utc).AddTicks(1335),
                             FineInPercentage = 20f,
                             PlanDays = 7,
                             PlanName = "7_Days"
@@ -282,7 +277,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                             Id = new Guid("54b78006-d2c0-4041-ad81-5e88b84142c0"),
                             AdditionalValuePerDay = 50f,
                             CostPerDay = 28f,
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5802),
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 622, DateTimeKind.Utc).AddTicks(1354),
                             FineInPercentage = 40f,
                             PlanDays = 15,
                             PlanName = "15_Days"
@@ -292,7 +287,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                             Id = new Guid("5b17845c-d0a7-4a84-b380-a0ac18382b5a"),
                             AdditionalValuePerDay = 50f,
                             CostPerDay = 22f,
-                            CreatedOn = new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5808),
+                            CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 622, DateTimeKind.Utc).AddTicks(1358),
                             FineInPercentage = 60f,
                             PlanDays = 30,
                             PlanName = "30_Days"
@@ -314,23 +309,21 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired()
-                        .HasMaxLength(100)
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("EstimatedEndDate")
-                        .IsRequired()
-                        .HasMaxLength(100)
+                    b.Property<DateTime>("EstimatedEndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("MotorcycleId")
                         .HasMaxLength(100)
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired()
+                    b.Property<Guid>("RentalPlanId")
                         .HasMaxLength(100)
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<float?>("TotalAmount")
@@ -344,20 +337,15 @@ namespace RentAndDelivery.Infrastructure.Migrations
 
                     b.HasIndex("MotorcycleId");
 
-                    b.ToTable("VehiclesRentals");
-                });
+                    b.HasIndex("RentalPlanId");
 
-            modelBuilder.Entity("RentAndDelivery.Domain.Entities.DeliveryPerson", b =>
-                {
-                    b.HasOne("RentAndDelivery.Domain.Entities.Order", null)
-                        .WithMany("DeliveryPersons")
-                        .HasForeignKey("OrderId");
+                    b.ToTable("VehiclesRentals");
                 });
 
             modelBuilder.Entity("RentAndDelivery.Domain.Entities.Order", b =>
                 {
                     b.HasOne("RentAndDelivery.Domain.Entities.DeliveryPerson", "DeliveryPerson")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("DeliveryPersonId");
 
                     b.Navigation("DeliveryPerson");
@@ -396,19 +384,17 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RentAndDelivery.Domain.Entities.RentalPlan", "RentalPlan")
+                        .WithMany()
+                        .HasForeignKey("RentalPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("DeliveryPerson");
 
                     b.Navigation("Motorcycle");
-                });
 
-            modelBuilder.Entity("RentAndDelivery.Domain.Entities.DeliveryPerson", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("RentAndDelivery.Domain.Entities.Order", b =>
-                {
-                    b.Navigation("DeliveryPersons");
+                    b.Navigation("RentalPlan");
                 });
 #pragma warning restore 612, 618
         }

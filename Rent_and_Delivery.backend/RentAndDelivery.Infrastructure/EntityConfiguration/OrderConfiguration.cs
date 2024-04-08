@@ -12,7 +12,7 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
             builder.HasKey(m => m.Id);
             builder.Property(m => m.RaceValue).IsRequired();
             builder.Property(m => m.OrderStatusStatus).IsRequired();
-            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
+            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).HasDefaultValueSql("Now()").IsRequired();
             builder.Property(m => m.DeliveryPersonId);
             builder.Property(m => m.AcceptedOrderDate);
             builder.Property(m => m.DeliveredOrderDate);

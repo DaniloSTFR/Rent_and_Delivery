@@ -24,8 +24,8 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
         {
             var rentalPlan = await db.RentalPlans.FindAsync(new Guid(rentalPlanId));
 
-            if (rentalPlan is null)
-                throw new InvalidOperationException("RentalPlan not found!");
+            /*if (rentalPlan is null)
+                throw new InvalidOperationException("RentalPlan not found!");*/
 
             return rentalPlan;
         }

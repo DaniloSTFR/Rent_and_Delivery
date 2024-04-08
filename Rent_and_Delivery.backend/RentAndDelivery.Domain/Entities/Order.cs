@@ -14,13 +14,13 @@ namespace RentAndDelivery.Domain.Entities
         public DeliveryPerson? DeliveryPerson { get; set; }       
         public DateTime? AcceptedOrderDate { get; set; }
         public DateTime? DeliveredOrderDate { get; set; }
-        public ICollection<DeliveryPerson> DeliveryPersons { get; } = new List<DeliveryPerson>();
         #endregion
 
         public Order(){}
 
         public Order(float raceValue, OrderStatusType orderStatusStatus)
         {
+            Id = SGVG.Next(null);
             CreatedOn = DateTime.Now;
             ValidateDomain(raceValue, orderStatusStatus);
         }

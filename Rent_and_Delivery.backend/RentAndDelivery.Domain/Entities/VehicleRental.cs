@@ -18,31 +18,36 @@ namespace RentAndDelivery.Domain.Entities
 
         public Guid MotorcycleId { get; private set; }
         public Motorcycle? Motorcycle { get; private set; }
+
+        public Guid RentalPlanId { get; private set; }
+        public RentalPlan? RentalPlan { get; private set; }
+
         #endregion
 
         public VehicleRental(){}
 
-        public VehicleRental(DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle)
+        public VehicleRental(DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle, RentalPlan? rentalPlan)
         {
+            Id = SGVG.Next(null);
             CreatedOn = DateTime.Now;
-            ValidateDomain(startDate, endDate, estimatedEndDate, totalAmount, deliveryPerson, motorcycle);
+            ValidateDomain(startDate, endDate, estimatedEndDate, totalAmount, deliveryPerson, motorcycle, rentalPlan);
         }
 
         [JsonConstructor]
-        public VehicleRental(Guid id, DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle, DateTime createdOn)
+        public VehicleRental(Guid id, DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle,RentalPlan? rentalPlan, DateTime createdOn)
         {
             DomainValidation.When(string.IsNullOrEmpty(id.ToString()), "Invalid Id value.");
             Id = id;
             CreatedOn = createdOn;
-            ValidateDomain(startDate, endDate, estimatedEndDate, totalAmount, deliveryPerson, motorcycle);
+            ValidateDomain(startDate, endDate, estimatedEndDate, totalAmount, deliveryPerson, motorcycle, rentalPlan);
         }
 
-        public void Update(DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle)
+        public void Update(DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle, RentalPlan? rentalPlan)
         {
-            ValidateDomain(startDate, endDate, estimatedEndDate, totalAmount, deliveryPerson, motorcycle);
+            ValidateDomain(startDate, endDate, estimatedEndDate, totalAmount, deliveryPerson, motorcycle, rentalPlan);
         }
 
-        private void ValidateDomain(DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle)
+        private void ValidateDomain(DateTime startDate, DateTime endDate, DateTime estimatedEndDate, float totalAmount, DeliveryPerson deliveryPerson, Motorcycle motorcycle, RentalPlan? rentalPlan)
         {
             DomainValidation.When(endDate <= startDate,
                 "The rental end date cannot be equals or less than the start date!");
@@ -66,6 +71,9 @@ namespace RentAndDelivery.Domain.Entities
             DomainValidation.When(!motorcycle.Status.Equals(MotorcycleStatusType.Available),
                 "The motorcycle is not available for rent. An available motorcycle is required!");
 
+            DomainValidation.When(rentalPlan is null,
+                "RentalPlan is Invalid. RentalPlan is required!");
+
             StartDate = startDate;
             EndDate = endDate;
             EstimatedEndDate = estimatedEndDate;
@@ -74,6 +82,7 @@ namespace RentAndDelivery.Domain.Entities
             DeliveryPerson = deliveryPerson;
             MotorcycleId = motorcycle.Id;
             Motorcycle = motorcycle;
+            RentalPlan = rentalPlan;
         }
         
     }

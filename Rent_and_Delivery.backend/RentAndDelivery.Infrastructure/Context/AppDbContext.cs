@@ -27,8 +27,10 @@ namespace RentAndDelivery.Infrastructure.Context
             builder.ApplyConfiguration(new OrderNotificationConfiguration());
             builder.ApplyConfiguration(new RentalPlanConfiguration());
             builder.ApplyConfiguration(new VehicleRentalConfiguration());
+            builder.Entity<Motorcycle>().HasIndex(m => m.Plate).IsUnique();
 
-            builder.Entity<DeliveryPerson>()
+
+/*          builder.Entity<DeliveryPerson>()
                 .HasMany(e => e.Orders)
                 .WithOne(e => e.DeliveryPerson)
                 .HasForeignKey(e => e.DeliveryPersonId)
@@ -37,7 +39,7 @@ namespace RentAndDelivery.Infrastructure.Context
             builder.Entity<Motorcycle>()
                 .HasMany(e => e.DeliveryPersons)
                 .WithMany(e => e.Motorcycles)
-                .UsingEntity<VehicleRental>();
+                .UsingEntity<VehicleRental>(); */
 
 /*             builder.Entity<Order>()
                 .HasMany(e => e.DeliveryPersons)

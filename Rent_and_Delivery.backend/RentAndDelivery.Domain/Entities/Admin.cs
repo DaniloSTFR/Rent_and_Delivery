@@ -6,7 +6,7 @@ namespace RentAndDelivery.Domain.Entities
     public class Admin : BaseEntity
     {
         #region  External Props
-        public string? Name { get; private set; }
+        public string? Name { get; set; }
         #endregion 
 
         public Admin()
@@ -15,6 +15,7 @@ namespace RentAndDelivery.Domain.Entities
 
         public Admin(string name)
         {
+            Id = SGVG.Next(null);
             CreatedOn = DateTime.Now;
             ValidateDomain(name);
         }

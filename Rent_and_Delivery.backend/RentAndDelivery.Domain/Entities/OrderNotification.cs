@@ -17,6 +17,7 @@ namespace RentAndDelivery.Domain.Entities
 
         public OrderNotification(DeliveryPerson? deliveryPerson, Order? orders)
         {
+            Id = SGVG.Next(null);
             CreatedOn = DateTime.Now;
             ValidateDomain(deliveryPerson, orders);
         }

@@ -27,20 +27,37 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DeliveryPersons",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    CNPJ = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LicenseNumberCNH = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    LicenseType = table.Column<int>(type: "integer", nullable: false),
+                    ImageCNH = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryPersons", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Motorcycles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Year = table.Column<int>(type: "integer", nullable: false),
                     Model = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Plate = table.Column<string>(type: "text", nullable: false),
+                    Plate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Motorcycles", x => x.Id);
-                    table.UniqueConstraint("UniqueKey_Plate", x => x.Plate);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,25 +75,6 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RentalPlans", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DeliveryPersons",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    CNPJ = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LicenseNumberCNH = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    LicenseType = table.Column<int>(type: "integer", nullable: false),
-                    ImageCNH = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    OrderId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DeliveryPersons", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,12 +104,13 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", maxLength: 100, nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", maxLength: 100, nullable: false),
-                    EstimatedEndDate = table.Column<DateTime>(type: "timestamp with time zone", maxLength: 100, nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EstimatedEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     TotalAmount = table.Column<float>(type: "real", maxLength: 100, nullable: false),
                     DeliveryPersonId = table.Column<Guid>(type: "uuid", maxLength: 100, nullable: false),
                     MotorcycleId = table.Column<Guid>(type: "uuid", maxLength: 100, nullable: false),
+                    RentalPlanId = table.Column<Guid>(type: "uuid", maxLength: 100, nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "Now()")
                 },
                 constraints: table =>
@@ -127,6 +126,12 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         name: "FK_VehiclesRentals_Motorcycles_MotorcycleId",
                         column: x => x.MotorcycleId,
                         principalTable: "Motorcycles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehiclesRentals_RentalPlans_RentalPlanId",
+                        column: x => x.RentalPlanId,
+                        principalTable: "RentalPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -160,37 +165,38 @@ namespace RentAndDelivery.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "CreatedOn", "Name" },
-                values: new object[] { new Guid("4faa9cab-f205-40cb-5953-08dc489cfb2d"), new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(6194), "Admin" });
+                values: new object[] { new Guid("4faa9cab-f205-40cb-5953-08dc489cfb2d"), new DateTime(2024, 4, 8, 22, 5, 58, 620, DateTimeKind.Utc).AddTicks(8075), "Admin" });
 
             migrationBuilder.InsertData(
                 table: "DeliveryPersons",
-                columns: new[] { "Id", "BirthDate", "CNPJ", "CreatedOn", "ImageCNH", "LicenseNumberCNH", "LicenseType", "Name", "OrderId" },
-                values: new object[] { new Guid("15ef9e35-e3af-4a70-826d-88edba8efcc0"), new DateTime(2004, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8450), "74979006000199", new DateTime(2024, 4, 6, 19, 11, 56, 129, DateTimeKind.Utc).AddTicks(8460), "./images/imageCNH.jpg", "30222894101", 1, "John Doe Test", null });
+                columns: new[] { "Id", "BirthDate", "CNPJ", "CreatedOn", "ImageCNH", "LicenseNumberCNH", "LicenseType", "Name" },
+                values: new object[] { new Guid("15ef9e35-e3af-4a70-826d-88edba8efcc0"), new DateTime(2004, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(1255), "74979006000199", new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(1265), "./images/imageCNH.jpg", "30222894101", 1, "John Doe Test" });
 
             migrationBuilder.InsertData(
                 table: "Motorcycles",
                 columns: new[] { "Id", "CreatedOn", "Model", "Plate", "Status", "Year" },
-                values: new object[] { new Guid("6c31f522-56b1-4bc2-a8c9-585627c23318"), new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(825), "Factor 125", "OFL0823", 1, 2023 });
+                values: new object[] { new Guid("6c31f522-56b1-4bc2-a8c9-585627c23318"), new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(3179), "FACTOR 125", "OFL0823", 1, 2023 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "AcceptedOrderDate", "CreatedOn", "DeliveredOrderDate", "DeliveryPersonId", "OrderStatusStatus", "RaceValue" },
-                values: new object[] { new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"), null, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(2636), null, null, 1, 50f });
+                values: new object[] { new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"), null, new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(7390), null, null, 1, 50f });
 
             migrationBuilder.InsertData(
                 table: "RentalPlans",
                 columns: new[] { "Id", "AdditionalValuePerDay", "CostPerDay", "CreatedOn", "FineInPercentage", "PlanDays", "PlanName" },
                 values: new object[,]
                 {
-                    { new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"), 50f, 30f, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5783), 20f, 7, "7_Days" },
-                    { new Guid("54b78006-d2c0-4041-ad81-5e88b84142c0"), 50f, 28f, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5802), 40f, 15, "15_Days" },
-                    { new Guid("5b17845c-d0a7-4a84-b380-a0ac18382b5a"), 50f, 22f, new DateTime(2024, 4, 6, 19, 11, 56, 130, DateTimeKind.Utc).AddTicks(5808), 60f, 30, "30_Days" }
+                    { new Guid("3531a2ac-015f-4b7e-95b6-8f6e54a040bb"), 50f, 30f, new DateTime(2024, 4, 8, 22, 5, 58, 622, DateTimeKind.Utc).AddTicks(1335), 20f, 7, "7_Days" },
+                    { new Guid("54b78006-d2c0-4041-ad81-5e88b84142c0"), 50f, 28f, new DateTime(2024, 4, 8, 22, 5, 58, 622, DateTimeKind.Utc).AddTicks(1354), 40f, 15, "15_Days" },
+                    { new Guid("5b17845c-d0a7-4a84-b380-a0ac18382b5a"), 50f, 22f, new DateTime(2024, 4, 8, 22, 5, 58, 622, DateTimeKind.Utc).AddTicks(1358), 60f, 30, "30_Days" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeliveryPersons_OrderId",
-                table: "DeliveryPersons",
-                column: "OrderId");
+                name: "IX_Motorcycles_Plate",
+                table: "Motorcycles",
+                column: "Plate",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderNotifications_DeliveryPersonId",
@@ -217,21 +223,15 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 table: "VehiclesRentals",
                 column: "MotorcycleId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_DeliveryPersons_Orders_OrderId",
-                table: "DeliveryPersons",
-                column: "OrderId",
-                principalTable: "Orders",
-                principalColumn: "Id");
+            migrationBuilder.CreateIndex(
+                name: "IX_VehiclesRentals_RentalPlanId",
+                table: "VehiclesRentals",
+                column: "RentalPlanId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_DeliveryPersons_Orders_OrderId",
-                table: "DeliveryPersons");
-
             migrationBuilder.DropTable(
                 name: "Admins");
 
@@ -239,16 +239,16 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 name: "OrderNotifications");
 
             migrationBuilder.DropTable(
-                name: "RentalPlans");
+                name: "VehiclesRentals");
 
             migrationBuilder.DropTable(
-                name: "VehiclesRentals");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Motorcycles");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "RentalPlans");
 
             migrationBuilder.DropTable(
                 name: "DeliveryPersons");

@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using RentAndDelivery.Domain.Interfaces;
-using RentAndDelivery.Domain.Interfaces.Output;
+using MediatR;
+using RentAndDelivery.Application.Handlers.AdminHandlers.Queries;
+using RentAndDelivery.Application.Handlers.AdminHandlers.Commands;
 
 namespace RentAndDelivery.API.Controllers
 {
@@ -14,28 +9,99 @@ namespace RentAndDelivery.API.Controllers
     [Route("[controller]")]
     public class AdminController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
 
-        public AdminController(IUnitOfWork unitOfWork)
+        public AdminController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> ObterPorId(string id)
+        /*=[HttpGet("Id/{id}")]
+        public async Task<IActionResult> GetAdminById(string id)
         {
-            var admin = await _unitOfWork.AdminOutputRepository.GetAdminById(id);
-            if (admin == null){
-                return NotFound();
-            }
-             return admin != null ? Ok(admin) : NotFound("No admins!");
-        }
+            var query = new GetAdminByIdQuery{ Id = id };
+            var admin = await _mediator.Send(query);
+            return admin != null ? Ok(admin) : NotFound("Admin not found!");
+        } */
 
-        [HttpGet]
+        /*[HttpGet("GetAdmins")]
         public async Task<IActionResult> GetAdmins()
         {
-            var admins = await _unitOfWork.AdminOutputRepository.GetAdmins();
-            return admins != null ? Ok(admins) : NotFound("No admins!");
+            var query = new GetAdminsQuery();
+            var admins = await _mediator.Send(query);
+            return admins != null ? Ok(admins) : NotFound("Admins not found!");
+        }&*/
+
+        [HttpGet("FindByName/{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAdminByName(string name)
+        {
+            var query = new GetAdminByNameQuery{ Name = name };
+            var admin = await _mediator.Send(query);
+            return admin != null ? Ok(admin) : NotFound("Admin not found!");
+        }
+
+        [HttpPost("CreateAdmin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateAdmin(CreateAdminCommand command)
+        {
+            if(command == null)
+            {
+                return BadRequest("Invalid data!");
+            }
+
+            var createdAdmin = await _mediator.Send(command);
+            return  createdAdmin!=null ? Ok(createdAdmin) : StatusCode(500,createdAdmin);
+            //return CreatedAtAction(nameof(GetAdminByAdmin), new { id = createdAdmin.Id }, createdAdmin);
+        }
+
+        [HttpPost("RegisterMotorcycle")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> RegisterMotorcycle(RegisterMotorcycleCommand command)
+        {
+            if(command == null)
+            {
+                return BadRequest("Invalid data!");
+            }
+
+            var createdMotorcycle = await _mediator.Send(command);
+            return  createdMotorcycle!=null ? Ok(createdMotorcycle) : StatusCode(500,createdMotorcycle);
+            //return CreatedAtAction(nameof(GetAdminByAdmin), new { id = createdAdmin.Id }, createdAdmin);
+        }
+
+        [HttpGet("GetMotorcycleFilterByPlate/{plate}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetMotorcycleFilterByPlate(string plate)
+        {
+            var query = new GetMotorcycleFilterByPlateQuery{ Plate = plate };
+            var motorcycles = await _mediator.Send(query);
+            return motorcycles != null ? Ok(motorcycles) : NotFound("Admin not found!");
+        }
+
+        [HttpPut("UpdateMotorcyclePlate/{motorcycleId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateMotorcyclePlate(string motorcycleId, string plate)
+        {
+            var query = new UpdateMotorcyclePlateCommand{Id = motorcycleId, Plate = plate };
+            var motorcycles = await _mediator.Send(query);
+            return motorcycles != null ? Ok(motorcycles) : NotFound("Motorcycle not found!");
+        }
+
+        [HttpDelete("DeleteMotorcycleById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteMember(string id)
+        {
+            var command = new DeleteMotorcycleCommand { Id = id };
+            var deletedMotorcycle = await _mediator.Send(command);
+
+            return deletedMotorcycle != null ? Ok(deletedMotorcycle) : NotFound("Motorcycle not deleted!");
         }
 
     }

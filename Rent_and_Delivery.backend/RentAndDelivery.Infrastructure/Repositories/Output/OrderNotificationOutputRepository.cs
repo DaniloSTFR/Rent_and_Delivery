@@ -18,8 +18,8 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
         {
             var orderNotification = await db.OrderNotifications.FindAsync(new Guid(orderNotificationId));
 
-            if (orderNotification is null)
-                throw new InvalidOperationException("ArderNotification not found!");
+            /*if (orderNotification is null)
+                throw new InvalidOperationException("ArderNotification not found!");*/
 
             return orderNotification;
         }

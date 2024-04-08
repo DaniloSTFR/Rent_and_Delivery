@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using RentAndDelivery.API.Filters;
+using RentAndDelivery.Application.Mapping;
 using RentAndDelivery.CrossCutting.AppDependencies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+//Register Filter
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(new CustomExceptionFilter());
+});
 
 var app = builder.Build();
 

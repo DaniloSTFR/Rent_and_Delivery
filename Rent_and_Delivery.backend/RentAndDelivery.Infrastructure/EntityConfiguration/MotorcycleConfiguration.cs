@@ -12,10 +12,10 @@ namespace RentAndDelivery.Infrastructure.EntityConfiguration
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Year).IsRequired();
             builder.Property(m => m.Model).HasMaxLength(100).IsRequired();
-            builder.HasAlternateKey(c => c.Plate).HasName("UniqueKey_Plate");
+            builder.Property(m => m.Plate).HasMaxLength(10).IsRequired();
             //builder.Property(m => m.Plate).HasMaxLength(100).IsRequired();
             builder.Property(m => m.Status).IsRequired();
-            builder.Property(m => m.CreatedOn).HasDefaultValueSql("Now()").IsRequired();
+            builder.Property(m => m.CreatedOn).HasConversion(new UtcDateTimeConverter()).HasDefaultValueSql("Now()").IsRequired();
             
 
             //ValuesDafault to test

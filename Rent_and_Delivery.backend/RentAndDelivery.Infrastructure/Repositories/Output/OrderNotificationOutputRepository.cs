@@ -24,7 +24,7 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
             return orderNotification;
         }
 
-        public async Task<IEnumerable<OrderNotification>> GetOrderNotificationByOrder(string orderId)
+        public async Task<IEnumerable<OrderNotification>> GetOrdersNotificationsByOrderId(string orderId)
         {   
             if (string.IsNullOrEmpty(orderId))
                 throw new InvalidOperationException("OrderId is null");

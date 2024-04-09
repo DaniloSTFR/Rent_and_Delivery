@@ -8,8 +8,8 @@ namespace RentAndDelivery.Application.Mapping
     {
         public OrderNotificationMapping()
         {
-            // CreateMap<OrderNotificationRequest, OrderNotification>();
-            // CreateMap<OrderNotification, OrderNotificationRequest>();
+            CreateMap<OrderNotificationRequest, OrderNotification>();
+            CreateMap<OrderNotification, OrderNotificationRequest>();
         }
     }
 }

@@ -3,7 +3,6 @@ using RentAndDelivery.Domain.Interfaces.Output;
 using RentAndDelivery.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace RentAndDelivery.Infrastructure.Repositories.Output
 {
     public class DeliveryPersonOutputRepository : IDeliveryPersonOutputRepository
@@ -37,6 +36,12 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
                 throw new InvalidOperationException("Delivery person not found!"); */
 
             return delivery;
+        }
+
+        public async Task<IEnumerable<DeliveryPerson>> GetDeliveryPersons()
+        {
+            var deliveryPersonlist = await db.DeliveryPersons.ToListAsync();
+            return deliveryPersonlist ?? Enumerable.Empty<DeliveryPerson>();
         }
     }
 }

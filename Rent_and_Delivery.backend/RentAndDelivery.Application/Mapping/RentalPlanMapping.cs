@@ -8,8 +8,8 @@ namespace RentAndDelivery.Application.Mapping
     {
         public RentalPlanMapping()
         {
-            // CreateMap<RentalPlanRequest, RentalPlan>();
-            // CreateMap<RentalPlan, RentalPlanRequest>();
+            CreateMap<RentalPlanRequest, RentalPlan>();
+            CreateMap<RentalPlan, RentalPlanRequest>();
         }
     }
 }

@@ -104,5 +104,31 @@ namespace RentAndDelivery.API.Controllers
             return deletedMotorcycle != null ? Ok(deletedMotorcycle) : NotFound("Motorcycle not deleted!");
         }
 
+        [HttpPost("RegisterNewOrder")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> RegisterNewOrder(RegisterNewOrderCommand command)
+        {
+            if(command == null)
+            {
+                return BadRequest("Invalid data!");
+            }
+
+            var createdOrder = await _mediator.Send(command);
+            return  createdOrder!=null ? Ok(createdOrder) : StatusCode(500,createdOrder);
+            //return CreatedAtAction(nameof(GetAdminByAdmin), new { id = createdAdmin.Id }, createdAdmin);
+        }
+
+        [HttpGet("ConsultOrdersNotificationsByOrderId/{orderid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ConsultOrdersNotificationsByOrderId(string orderid)
+        {
+            var query = new ConsultOrdersNotificationsByOrderIdQuery{ OrderId = orderid };
+            var ordersNotifications = await _mediator.Send(query);
+            return ordersNotifications != null ? Ok(ordersNotifications) : NotFound("OrdersNotifications not found!");
+        }
+
+
     }
 }

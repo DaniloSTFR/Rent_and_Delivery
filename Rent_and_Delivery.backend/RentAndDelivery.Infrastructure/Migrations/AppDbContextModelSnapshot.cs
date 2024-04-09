@@ -173,7 +173,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                     b.Property<Guid?>("DeliveryPersonId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("OrderStatusStatus")
+                    b.Property<int>("OrderStatus")
                         .HasColumnType("integer");
 
                     b.Property<float?>("RaceValue")
@@ -191,7 +191,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                         {
                             Id = new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"),
                             CreatedOn = new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(7390),
-                            OrderStatusStatus = 1,
+                            OrderStatus = 1,
                             RaceValue = 50f
                         });
                 });

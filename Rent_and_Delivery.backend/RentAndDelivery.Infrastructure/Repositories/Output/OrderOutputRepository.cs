@@ -28,7 +28,7 @@ namespace RentAndDelivery.Infrastructure.Repositories.Output
         public async Task<IEnumerable<Order>> GetOrderStatus(OrderStatusType status)
         {   
             var orders = await db.Orders
-                    .Where(on => on.OrderStatusStatus == status).ToListAsync(); 
+                    .Where(on => on.OrderStatus == status).ToListAsync(); 
                                   
             return orders ?? Enumerable.Empty<Order>();
         }

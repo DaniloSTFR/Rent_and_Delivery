@@ -8,8 +8,8 @@ namespace RentAndDelivery.Application.Mapping
     {
         public VehicleRentalMapping()
         {
-            // CreateMap<VehicleRentalRequest, VehicleRental>();
-            // CreateMap<VehicleRental, VehicleRentalRequest>();
+            CreateMap<VehicleRentalRequest, VehicleRental>();
+            CreateMap<VehicleRental, VehicleRentalRequest>();
         }
     }
 }

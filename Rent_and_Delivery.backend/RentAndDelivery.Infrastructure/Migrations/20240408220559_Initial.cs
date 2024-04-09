@@ -83,7 +83,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     RaceValue = table.Column<float>(type: "real", nullable: false),
-                    OrderStatusStatus = table.Column<int>(type: "integer", nullable: false),
+                    OrderStatus = table.Column<int>(type: "integer", nullable: false),
                     DeliveryPersonId = table.Column<Guid>(type: "uuid", nullable: true),
                     AcceptedOrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeliveredOrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -179,7 +179,7 @@ namespace RentAndDelivery.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "AcceptedOrderDate", "CreatedOn", "DeliveredOrderDate", "DeliveryPersonId", "OrderStatusStatus", "RaceValue" },
+                columns: new[] { "Id", "AcceptedOrderDate", "CreatedOn", "DeliveredOrderDate", "DeliveryPersonId", "OrderStatus", "RaceValue" },
                 values: new object[] { new Guid("814270d0-e6f8-4b95-b1c8-c74ba38e0381"), null, new DateTime(2024, 4, 8, 22, 5, 58, 621, DateTimeKind.Utc).AddTicks(7390), null, null, 1, 50f });
 
             migrationBuilder.InsertData(
